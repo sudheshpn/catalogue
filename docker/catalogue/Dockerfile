@@ -22,7 +22,7 @@ RUN chown -R ${user}:${group} /app/main /images
 
 USER ${user}
 
-CMD ["/app/main", "-port=8081"]
+CMD ["/app/main", "-port=80"]
 
-EXPOSE 8081
+EXPOSE 80
 
