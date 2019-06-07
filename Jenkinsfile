@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     checkout scm  
-                    def customImage = docker.build("sudheshpn/catalogue:${env.BUILD_ID}", "./docker/catalogue .") 
+                    def customImage = docker.build("sudheshpn/catalogue:${env.BUILD_ID}", "-f ./docker/catalogue/Dockerfile .") 
                     customImage.push()
                     customImage.push('latest')
                     }
