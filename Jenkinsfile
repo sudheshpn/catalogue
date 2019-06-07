@@ -12,7 +12,8 @@ pipeline {
             }
             steps {
                 script {
-                    def customImage = docker.build("sudheshpn/catalogue:${env.BUILD_NUMBER}"," -f ./docker/catalogue/Dockerfile")
+                    def dockerfile = 'Dockerfile'
+                    def customImage = docker.build("sudheshpn/catalogue:${env.BUILD_ID}", "-f ${dockerfile} ./docker/catalogue") 
                     customImage.push()
                     customImage.push('latest')
                     }
