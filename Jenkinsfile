@@ -11,7 +11,7 @@ pipeline {
             }
             steps {
                 script {
-                    docker.build -t registry + ":$BUILD_NUMBER" -f docker/catalogue/Dockerfile .
+                    def customImage = docker.build("sudheshpn/catalogue:${env.BUILD_NUMBER}","./docker/catalogue/Dockerfile")
                     }
                 }
             }
