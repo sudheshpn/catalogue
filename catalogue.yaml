@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: catalogue
-        image: catalogue:latest
+        image: sudheshpn/catalogue:latest
         ports:
         - containerPort: 8081
 
