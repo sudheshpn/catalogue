@@ -1,9 +1,10 @@
 pipeline {
+      agent any
       environment {
       registry = "sudheshpn/catalogue"
       registryCredential = 'docker_hub_login'
   }
-    agent any
+    
     stages {
         stage('Build Docker Image') {
             when {
