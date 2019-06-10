@@ -1,0 +1,42 @@
+pipeline {
+      agent any
+      environment {
+      registry = "sudheshpn/cataloguedb"
+      registryCredential = 'docker_hub_login'
+      MYSQL_DATABASE='socksdb'
+      MYSQL_ALLOW_EMPTY_PASSWORD=true
+  }
+    
+    stages {
+        stage('Build Docker Image') {
+            when {
+                branch 'master'
+            }
+            steps {
+                script {
+                    checkout scm  
+                    def customImage = docker.build("sudheshpn/cataloguedb:${env.BUILD_ID}", "-f ./docker/catalogue-db/Dockerfile .") 
+                    customImage.push()
+                    customImage.push('latest')
+                    }
+                }
+            }
+        
+    stage('DeployToProduction') {
+            when {
+                branch 'master'
+            }
+            steps {
+                input 'Deploy to Production?'
+                milestone(1)
+                //implement Kubernetes deployment here
+                kubernetesDeploy(
+                    kubeconfigId: 'kubeconfig',
+                    kubeConfig: [path: '/var/lib/jenkins/workspace/.kube/config'],
+                    configs: 'cataloguedb.yaml',
+                    enableConfigSubstitution: true
+                )
+            }
+        }
+    }
+}
