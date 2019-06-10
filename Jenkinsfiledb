@@ -1,7 +1,7 @@
 pipeline {
       agent any
       environment {
-      registry = "sudheshpn/cataloguedb"
+      registry = "sudheshpn/catalogdb"
       registryCredential = 'docker_hub_login'
       MYSQL_DATABASE='socksdb'
       MYSQL_ALLOW_EMPTY_PASSWORD=true
@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     checkout scm  
-                    def customImage = docker.build("sudheshpn/cataloguedb:${env.BUILD_ID}", "-f ./docker/catalogue-db/Dockerfile .") 
+                    def customImage = docker.build("sudheshpn/catalogdb:${env.BUILD_ID}", "-f ./docker/catalogue-db/Dockerfile .") 
                     customImage.push()
                     customImage.push('latest')
                     }
