@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: cataloguedb-service
+  name: catalogue-db
 spec:
   type: ClusterIP
   selector:
@@ -14,7 +14,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cataloguedb-deployment
+  name: catalogue-db
   labels:
     app: catalogue-db
 spec:
