@@ -1,0 +1,35 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: cataloguedb-service
+spec:
+  type: ClusterIP
+  selector:
+    app: catalogue-db
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cataloguedb-deployment
+  labels:
+    app: catalogue-db
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: catalogue-db
+  template:
+    metadata:
+      labels:
+        app: catalogue-db
+    spec:
+      containers:
+      - name: cataloguedb
+        image: sudheshpn/cataloguedb:latest
+        ports:
+- containerPort: 3306
